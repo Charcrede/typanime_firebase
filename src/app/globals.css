@@ -1,33 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
+@import url(../../public/assets/Google-sans/font-face.css);
+@import url(../../public/assets/Metropolis_Fonts/font-face.css);
+@import url(../../public/assets/bebas_neue/font-face.css);
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    background: url('../../public/assets/OtakuType.png') no-repeat fixed 100% /cover ;
+    font-family: ProductSans;
 }
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+span.retry.bg-green-500{
+    background: #fc9700;
+}
+#container::-webkit-scrollbar{
+    display: none;
 }
