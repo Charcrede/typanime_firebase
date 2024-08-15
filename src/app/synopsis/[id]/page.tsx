@@ -278,7 +278,7 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
                             </div>
                         )}
                         <div>
-                            <input id='input' autoCorrect='false' autoComplete='false' type="text" autoFocus className='absolute top-0 left-0 right-0 bottom-0 opacity-0' value={entry} onChange={(e) => handleChange(e)} />
+                            <input id='input' autoCorrect='off' autoComplete='off' autoCapitalize="off" type="text" autoFocus className='absolute top-0 left-0 right-0 bottom-0 opacity-0' value={entry} onChange={(e) => handleChange(e)} />
                         </div>
                     </div>
                     <div className='bg-primary w-full h-[55px] flex justify-between'>
