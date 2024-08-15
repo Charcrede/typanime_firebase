@@ -32,6 +32,7 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
     const [mention, setMention] = useState('')
     const [pause, setPause] = useState(false)
     const [input, setInput] = useState<any>()
+    const [audio, setAudio] = useState<any>()
     const entryRef = useRef(entry)
     const autoPause = useRef(0)
     const stopTimer = useRef<any>()
@@ -50,6 +51,8 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
             sps[i].classList.add("border-b-primary")
         }, 50);
         setCit(CITATIONS.filter((el) => el.id == id)[0])
+        setAudio(new Audio('/assets/sounds/keypress.wav'))
+        
 
     }, [])
 
@@ -94,6 +97,8 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
     const handleChange = (e: {
         nativeEvent: any; target: { value: string; };
     }) => {
+        audio.currentTime = 0
+        audio.play()
         autoPause.current = 0
         let ent = e.target.value
         setEntry(ent)
@@ -274,7 +279,7 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
                             </div>
                         )}
                         <div>
-                            <input id='input' type="text" autoFocus className='absolute top-0 left-0 right-0 bottom-0 opacity-0' value={entry} onChange={(e) => handleChange(e)} />
+                            <input id='input' autoCorrect='false' autoComplete='false' type="text" autoFocus className='absolute top-0 left-0 right-0 bottom-0 opacity-0' value={entry} onChange={(e) => handleChange(e)} />
                         </div>
                     </div>
                     <div className='bg-primary w-full h-[55px] flex justify-between'>
