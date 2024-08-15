@@ -54,6 +54,8 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
         }, 50);
         setCit(SYNOPSIS.filter((el) => el.id == id)[0])
         setAudio(new Audio('/assets/sounds/keypress.wav'))
+        setAShippai(new Audio('/assets/sounds/shippai.mp3'))
+        setASeiko(new Audio('/assets/sounds/seiko.mp3'))
 
     }, [])
 
