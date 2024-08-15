@@ -32,7 +32,9 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
     const [mention, setMention] = useState('')
     const [pause, setPause] = useState(false)
     const [input, setInput] = useState<any>()
-    const [audio, setAudio] = useState<any>() 
+    const [audio, setAudio] = useState<any>()
+    const [aShippai, setAShippai] = useState<any>()
+    const [aSeiko, setASeiko] = useState<any>() 
     const entryRef = useRef(entry)
     const autoPause = useRef(0)
     const stopTimer = useRef<any>()
@@ -156,8 +158,12 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
                 // Afficher shippai ou seiko
                 if (speed > 40) {
                     setMention('seiko')
+                    aSeiko.currentTime = 0
+                    aSeiko.play()
                 } else {
                     setMention('shippai')
+                    aShippai.currentTime = 0
+                    aShippai.play()
                 }
             }
 
