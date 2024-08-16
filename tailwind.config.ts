@@ -24,7 +24,7 @@ const config: Config = {
         secondary : '#a8aae7'
       },
       screens : {
-        xs : '360px',
+        xs : '50px',
         lg: '1024px'
       }
     },
