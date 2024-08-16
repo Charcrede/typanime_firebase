@@ -311,7 +311,7 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
                 </div>
             </div>
             <div className='top-0 left-0 bottom-0 right-0 flex items-center flex-col bg-black bg-opacity-50 backdrop-blur-sm py-16 xs:fixed lg:hidden'>
-                <Image src={'/assets/anya-forger-shocked-face.png'} alt='anya forger' width={200} height={200} className='mb-8 mt-24'></Image>
+                <Image src={'/assets/anya-forger-shocked-face.png'} alt='anya forger' width={200} height={200} className='mb-8 mt-12'></Image>
                 <span className='text-2xl text-center px-8 font-bold text-white font-Metropolis'>Tu dois utiliser un ordinateur pour pouvoir jouer et tester ta vitesse</span>
                 <Link href={'/citations'} className='mt-4 mx-auto text-primary uppercase font-ProductSans text-2xl bg-white rounded-full px-4 font-bold hover:text-white hover:bg-primary duration-300 border border-white'>Retour</Link>
             </div>
