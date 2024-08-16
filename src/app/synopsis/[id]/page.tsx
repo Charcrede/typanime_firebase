@@ -312,7 +312,7 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
                             <Link href={`/synopsis/${parseInt(id) + 1}`} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 512 512" className='w-5 h-5 fill-primary'><path d="M18.4 445c11.2 5.3 24.5 3.6 34.1-4.4L224 297.7V416c0 12.4 7.2 23.7 18.4 29s24.5 3.6 34.1-4.4L448 297.7V416c0 17.7 14.3 32 32 32s32-14.3 32-32V96c0-17.7-14.3-32-32-32s-32 14.3-32 32V214.3L276.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S224 83.6 224 96V214.3L52.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S0 83.6 0 96V416c0 12.4 7.2 23.7 18.4 29z" /></svg></Link>
                         </div>
                         <div className='top-0 left-0 bottom-0 right-0 flex items-center flex-col bg-black bg-opacity-50 backdrop-blur-sm py-16 xs:fixed lg:hidden'>
-                            <Image src={'/assets/anya-forger-shocked-face.png'} alt='anya forger' width={200} height={200} className='mb-8 mt-12'></Image>
+                            <Image src={'/assets/anya-forger-shocked-face.png'} alt='anya forger' width={200} height={200} className='mb-8 mt-6'></Image>
                             <span className='text-2xl text-center px-8 font-bold text-white font-Metropolis'>Tu dois utiliser un ordinateur pour pouvoir jouer et tester ta vitesse</span>
                             <Link href={'/synopsis'} className='mt-4 mx-auto text-primary uppercase font-ProductSans text-2xl bg-white rounded-full px-4 font-bold hover:text-white hover:bg-primary duration-300 border border-white'>Retour</Link>
                         </div>
