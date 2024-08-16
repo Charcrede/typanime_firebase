@@ -177,10 +177,6 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
         }
     }
 
-    const remake = () => {
-        setEntry("")
-    }
-
     const doubler = (num: number) => {
         return num < 10 ? '0' + num : num
     }
@@ -249,18 +245,18 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
     return (
         < >
             <Nav></Nav>
-            <div className='px-56'>
-                <div className='text-xl font-semibold'>
-                    <span className='bg-white text-primary mr-2 p-1 border-2 border-white'>Citation #{cit?.id}</span>
+            <div className='lg:px-56 xs:z-0 xs:px-4'>
+                <div className='lg:text-xl font-semibold xs:text-lg'>
+                    <span className='bg-white text-primary mr-2 p-1 border-2 border-white xs:hidden lg:inline'>Citation #{cit?.id}</span>
                     <span className='border-2 border-white text-white p-1'>{cit?.persoName}</span>
                     <Link className='bg-white text-primary p-1 border-2 border-white float-right flex items-center' href={'/citations'}><svg viewBox="0 0 448 512" className='h-6 w-6 mr-2 fill-primary inline'><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Retour</Link>
                 </div>
-                <div className='m-8 h-[460px] border-2 border-white' key={key}>
+                <div className='lg:m-8 h-[460px] border-2 border-white xs:m-4' key={key}>
                     {/* <input type="text" /> */}
                     <div className='relative h-[400px] overflow-hidden'>
                         <img src={`/${cit?.url}`} alt="" className='z-0 h-full w-full object-cover' />
                         <div className='absolute top-0 bottom-0 left-0 right-0 bg-white bg-opacity-65 z-0'></div>
-                        <div className='absolute text-primary top-0 left-0 right-0 bottom-0 text-[3rem] p-8 h-[400px] overflow-scroll duration-300' id='container'>
+                        <div className='absolute text-primary top-0 left-0 right-0 bottom-0 lg:text-[3rem] xs:text-[2rem] xs:p-4 lg:p-8 h-[400px] overflow-scroll duration-300' id='container'>
                             {letters.map((el, i) => (
                                 <span key={i}>
                                     {el.map((l, j) => (
@@ -294,7 +290,7 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
                             <span className='font-Bebas text-white text-[2.5rem] font-bold mx-2'>{doubler(speed)} MPM</span>
                             <span className='font-Bebas text-white text-[2.5rem] font-bold mx-2'> {doubler(accuracy)}%</span>
                         </div>
-                        <div className='flex p-2 gap-4'>
+                        <div className='lg:flex p-2 gap-4 xs:hidden'>
                             <Link href={`/citations/${parseInt(id) - 1}`} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 512 512" className='w-5 h-5 fill-primary fill-primary fill-primary'><path d="M493.6 445c-11.2 5.3-24.5 3.6-34.1-4.4L288 297.7V416c0 12.4-7.2 23.7-18.4 29s-24.5 3.6-34.1-4.4L64 297.7V416c0 17.7-14.3 32-32 32s-32-14.3-32-32V96C0 78.3 14.3 64 32 64s32 14.3 32 32V214.3L235.5 71.4c9.5-7.9 22.8-9.7 34.1-4.4S288 83.6 288 96V214.3L459.5 71.4c9.5-7.9 22.8-9.7 34.1-4.4S512 83.6 512 96V416c0 12.4-7.2 23.7-18.4 29z" /></svg></Link>
 
                             <button onClick={pause ? () => { input.focus() } : () => { pauser() }} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 320 512" className='w-5 h-5 fill-primary fill-primary fill-primary duration-500'>
@@ -313,6 +309,11 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
                         </div>
                     </div>
                 </div>
+            </div>
+            <div className='top-0 left-0 bottom-0 right-0 flex items-center flex-col bg-black bg-opacity-50 backdrop-blur-sm py-16 xs:fixed lg:hidden'>
+                <Image src={'/assets/anya-forger-shocked-face.png'} alt='anya forger' width={200} height={200} className='mb-8 mt-24'></Image>
+                <span className='text-2xl text-center px-8 font-bold text-white font-Metropolis'>Tu dois utiliser un ordinateur pour pouvoir jouer et tester ta vitesse</span>
+                <Link href={'/citations'} className='mt-4 mx-auto text-primary uppercase font-ProductSans text-2xl bg-white rounded-full px-4 font-bold hover:text-white hover:bg-primary duration-300 border border-white'>Retour</Link>
             </div>
         </>
     )

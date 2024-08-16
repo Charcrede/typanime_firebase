@@ -23,7 +23,10 @@ const config: Config = {
         primary : '#1f3f71',
         secondary : '#a8aae7'
       },
-      
+      screens : {
+        xs : '360px',
+        lg: '1024px'
+      }
     },
   },
   plugins: [],

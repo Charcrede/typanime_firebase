@@ -32,14 +32,14 @@ const Home = () => {
   return (
     <>
       <Nav></Nav>
-      <div className='px-32'>
+      <div className='lg:px-32 xs:p-8'>
 
-        <div>
-          <div className='flex justify-center gap-8'>
-            <Image src={ichigo} alt='ichigo' width={175} height={175} className='border-2 border-dotted rounded-full'></Image>
+        <div className='xs:relative'>
+          <div className='flex lg:flex-row justify-center gap-8 xs:flex-col xs:items-center xs:mt-8'>
+            <Image src={ichigo} alt='ichigo' width={175} height={175} className='border-2 border-dotted rounded-full xs:mt-20 lg:mt-0'></Image>
             <Image src={luffy} alt='luffy' width={175} height={175} className='border-2 border-dotted rounded-full'></Image>
           </div>
-          <p className='font-Bebas text-[4rem] text-white text-center'>
+          <p className='font-Bebas lg:static lg:text-[4rem] text-white text-center xs:text-[2rem] xs:absolute xs:-top-16'>
 
             DES SYNOPSIS ET CITATIONS <span className='text-[#f2c3b0]'>MANGA</span> POUR TESTER VOTRE VITESSE DE SAISIE
           </p>

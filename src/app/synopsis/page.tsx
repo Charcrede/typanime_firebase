@@ -31,8 +31,8 @@ const Synopsis = () => {
         <>
             <Nav></Nav>
             <div className=''>
-                <h1 className='align-center text-primary  font-Bebas font-bold text-[2.5rem] leading-10 align-middle flex justify-center'><span className='bg-white'>TESTEZ VOTRE VITESSE AVEC CES SYNOPSIS</span></h1>
-                <div className='grid grid-cols-3 w-3/4 gap-4 mx-auto mt-8 object-fit'>
+                <h1 className='align-center text-primary  font-Bebas font-bold xs:text-[1.5rem] lg:text-[2.5rem] leading-10 align-middle flex justify-center'><span className='bg-white'>TESTEZ VOTRE VITESSE AVEC CES SYNOPSIS</span></h1>
+                <div className='grid xs:grid-cols-1 lg:grid-cols-3 w-3/4 gap-4 mx-auto mt-8 object-fit'>
                     {SYNOPSIS.map((el, i) => (
                         <div key={i}>
                             <div className='border-2 border-white h-[350px] object-cover overflow-hidden rounded-t-2xl relative group'>

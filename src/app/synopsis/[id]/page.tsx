@@ -34,7 +34,7 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
     const [input, setInput] = useState<any>()
     const [audio, setAudio] = useState<any>()
     const [aShippai, setAShippai] = useState<any>()
-    const [aSeiko, setASeiko] = useState<any>() 
+    const [aSeiko, setASeiko] = useState<any>()
     const entryRef = useRef(entry)
     const autoPause = useRef(0)
     const stopTimer = useRef<any>()
@@ -249,18 +249,18 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
     return (
         < >
             <Nav></Nav>
-            <div className='px-56'>
+            <div className='lg:px-56 xs:px-8'>
                 <div className='text-xl font-semibold'>
                     <span className='bg-white text-primary mr-2 p-1 border-2 border-white'>Synopsis #{synop?.id}</span>
-                    <span className='border-2 border-white text-white p-1'>{synop?.anime}</span>
-                    <Link className='bg-white text-primary p-1 border-2 border-white float-right flex items-center' href={'/synopsis'}><svg viewBox="0 0 448 512" className='h-6 w-6 mr-2 fill-primary inline'><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Retour</Link>
+                    <span className='border-2 border-white text-white p-1 lg:inline xs:hidden'>{synop?.anime}</span>
+                    <Link className='bg-white text-primary p-1 border-2 border-white float-right flex items-center' href={'/synopsis'}><svg viewBox="0 0 448 512" className='h-6 w-6 mr-2 fill-primary inline'><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>Retour</Link>
                 </div>
                 <div className='m-8 h-[460px] border-2 border-white' key={key}>
                     {/* <input type="text" /> */}
                     <div className='relative h-[400px] overflow-hidden'>
                         <img src={`/${synop?.url}`} alt="" className='z-0 h-full w-full object-cover' />
                         <div className='absolute top-0 bottom-0 left-0 right-0 bg-white bg-opacity-65 z-0'></div>
-                        <div className='absolute text-primary top-0 left-0 right-0 bottom-0 text-[2.25rem] p-8 h-[400px] overflow-scroll duration-300' id='container'>
+                        <div className='absolute text-primary top-0 left-0 right-0 bottom-0 xs:text-[1.5rem] lg:text-[2.25rem] lg:p-8 xs:p-4 h-[400px] overflow-scroll duration-300' id='container'>
                             {letters.map((el, i) => (
                                 <span key={i}>
                                     {el.map((l, j) => (
@@ -294,7 +294,7 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
                             <span className='font-Bebas text-white text-[2.5rem] font-bold mx-2'>{doubler(speed)} MPM</span>
                             <span className='font-Bebas text-white text-[2.5rem] font-bold mx-2'> {doubler(accuracy)}%</span>
                         </div>
-                        <div className='flex p-2 gap-4'>
+                        <div className='lg:flex p-2 gap-4 xs:hidden'>
                             <Link href={`/synopsis/${parseInt(id) - 1}`} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 512 512" className='w-5 h-5 fill-primary'><path d="M493.6 445c-11.2 5.3-24.5 3.6-34.1-4.4L288 297.7V416c0 12.4-7.2 23.7-18.4 29s-24.5 3.6-34.1-4.4L64 297.7V416c0 17.7-14.3 32-32 32s-32-14.3-32-32V96C0 78.3 14.3 64 32 64s32 14.3 32 32V214.3L235.5 71.4c9.5-7.9 22.8-9.7 34.1-4.4S288 83.6 288 96V214.3L459.5 71.4c9.5-7.9 22.8-9.7 34.1-4.4S512 83.6 512 96V416c0 12.4-7.2 23.7-18.4 29z" /></svg></Link>
 
                             <button onClick={pause ? () => { input.focus() } : () => { pauser() }} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 320 512" className='w-5 h-5 fill-primary duration-500'>
@@ -310,6 +310,11 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
                             <button onClick={() => { restart() }} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 512 512" className='w-5 h-5 fill-primary'><path d="M0 224c0 17.7 14.3 32 32 32s32-14.3 32-32c0-53 43-96 96-96H320v32c0 12.9 7.8 24.6 19.8 29.6s25.7 2.2 34.9-6.9l64-64c12.5-12.5 12.5-32.8 0-45.3l-64-64c-9.2-9.2-22.9-11.9-34.9-6.9S320 19.1 320 32V64H160C71.6 64 0 135.6 0 224zm512 64c0-17.7-14.3-32-32-32s-32 14.3-32 32c0 53-43 96-96 96H192V352c0-12.9-7.8-24.6-19.8-29.6s-25.7-2.2-34.9 6.9l-64 64c-12.5 12.5-12.5 32.8 0 45.3l64 64c9.2 9.2 22.9 11.9 34.9 6.9s19.8-16.6 19.8-29.6V448H352c88.4 0 160-71.6 160-160z" /></svg></button>
 
                             <Link href={`/synopsis/${parseInt(id) + 1}`} className='flex justify-center items-center rounded-full bg-white px-2'><svg viewBox="0 0 512 512" className='w-5 h-5 fill-primary'><path d="M18.4 445c11.2 5.3 24.5 3.6 34.1-4.4L224 297.7V416c0 12.4 7.2 23.7 18.4 29s24.5 3.6 34.1-4.4L448 297.7V416c0 17.7 14.3 32 32 32s32-14.3 32-32V96c0-17.7-14.3-32-32-32s-32 14.3-32 32V214.3L276.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S224 83.6 224 96V214.3L52.5 71.4c-9.5-7.9-22.8-9.7-34.1-4.4S0 83.6 0 96V416c0 12.4 7.2 23.7 18.4 29z" /></svg></Link>
+                        </div>
+                        <div className='top-0 left-0 bottom-0 right-0 flex items-center flex-col bg-black bg-opacity-50 backdrop-blur-sm py-16 xs:fixed lg:hidden'>
+                            <Image src={'/assets/anya-forger-shocked-face.png'} alt='anya forger' width={200} height={200} className='mb-8 mt-24'></Image>
+                            <span className='text-2xl text-center px-8 font-bold text-white font-Metropolis'>Tu dois utiliser un ordinateur pour pouvoir jouer et tester ta vitesse</span>
+                            <Link href={'/synopsis'} className='mt-4 mx-auto text-primary uppercase font-ProductSans text-2xl bg-white rounded-full px-4 font-bold hover:text-white hover:bg-primary duration-300 border border-white'>Retour</Link>
                         </div>
                     </div>
                 </div>
