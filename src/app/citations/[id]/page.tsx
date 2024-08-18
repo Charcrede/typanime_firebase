@@ -7,12 +7,14 @@ import seiko from '../../../../public/assets/pngegg (4).png'
 import shippai from '../../../../public/assets/anime-33.png'
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { Citations } from '@/app/otaku';
+import { Citation } from '@/app/otaku';
+import axios from 'axios';
 
-const Citation = ({ params: { id } }: { params: { id: string } }) => {
+const Citations = ({ params: { id } }: { params: { id: string } }) => {
 
     // ########################### CONSTANTES #################################### //
-    const [cit, setCit] = useState<Citations>()
+    const [cit, setCit] = useState<Citation>()
+    const apiUrl = process.env.NEXT_PUBLIC_API
     const [text, setText] = useState<string[]>([])
     const router = useRouter()
 
@@ -42,7 +44,10 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
     // ########################### MOUNTED #################################### //
 
     useEffect(() => {
-        setTimeout(() => {
+        
+        axios.get(`${apiUrl}/api/citations/${id}`).then((resp) => {
+            setCit(resp.data)
+            setTimeout(() => {
 
             let sps = document.querySelectorAll(".lettre")
             setSpans(sps)
@@ -52,7 +57,7 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
             sps[i].classList.add("border-b-2")
             sps[i].classList.add("border-b-primary")
         }, 50);
-        setCit(CITATIONS.filter((el) => el.id == id)[0])
+        })
         setAudio(new Audio('/assets/sounds/keypress.wav'))
         setAShippai(new Audio('/assets/sounds/shippai.mp3'))
         setASeiko(new Audio('/assets/sounds/seiko.mp3'))
@@ -248,8 +253,8 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
             <div className='lg:px-56 xs:z-0 xs:px-4'>
                 <div className='lg:text-xl font-semibold xs:text-lg'>
                     <span className='bg-white text-primary mr-2 p-1 border-2 border-white xs:hidden lg:inline'>Citation #{cit?.id}</span>
-                    <span className='border-2 border-white text-white p-1'>{cit?.persoName}</span>
-                    <Link className='bg-white text-primary p-1 border-2 border-white float-right flex items-center' href={'/citations'}><svg viewBox="0 0 448 512" className='h-6 w-6 mr-2 fill-primary inline'><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg>Retour</Link>
+                    <span className='border-2 border-white text-white p-1'>{cit?.perso_name}</span>
+                    <Link className='bg-white text-primary p-1 border-2 border-white float-right flex items-center' href={'/citations'}><svg viewBox="0 0 448 512" className='h-6 w-6 mr-2 fill-primary inline'><path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.2 288 416 288c17.7 0 32-14.3 32-32s-14.3-32-32-32l-306.7 0L214.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z" /></svg>Retour</Link>
                 </div>
                 <div className='lg:m-8 h-[460px] border-2 border-white xs:m-4' key={key}>
                     {/* <input type="text" /> */}
@@ -321,4 +326,4 @@ const Citation = ({ params: { id } }: { params: { id: string } }) => {
 
 };
 
-export default Citation;
+export default Citations;

@@ -1,27 +1,77 @@
 'use client'
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect } from 'react';
 import Nav from '../Components/nav';
 import { SYNOPSIS } from '@/app/mockOtaku_second';
 import Image from 'next/image';
 import image from '../../../public/assets/citations/img/12.jpg'
 import Link from 'next/link';
-const Synopsis = () => {
+import {Synopsis} from '@/app/otaku'
+import axios from 'axios';
+const Synops = () => {
 
-    // ########################### CONSTANTES #################################### //
-
-    // ########################### VARIABLES #################################### //
-
-
+   // ########################### CONSTANTES #################################### //
+   const apiUrl = process.env.NEXT_PUBLIC_API
+   // ########################### VARIABLES #################################### //
+       const [synopsis, setSynopsis] = useState<Synopsis[]>([])
+       const [count, setCount] = useState(0)
+       const [active, setActive] = useState(1)
+       const [next, setNext] = useState('')
+       const [prev, setPrev] = useState('')
+       const [numbers, setNumbers] = useState<number[]>([])
     // ########################### MOUNTED #################################### //
 
-
+    useEffect(()=>{
+        axios.get(`${apiUrl}/api/synopsis`).then((resp)=>{
+           setSynopsis(resp.data.results)
+           setCount(resp.data.count)
+           setPrev(resp.data.prev)
+           setNext(resp.data.next)
+        
+           let n = resp.data.count / 6
+           let tab = []
+           for (let i = 0; i < n; i++) {
+                tab.push(i+1)
+           }
+           setNumbers(tab)
+        })
+    },[])
 
     // ########################### WATCHER #################################### //
 
 
     // ########################### METHODS #################################### //
 
+    const move = (link : string) =>{
+        axios.get(`${link}`).then((resp)=>{
+            setSynopsis(resp.data.results)
+            setCount(resp.data.count)
+            setPrev(resp.data.previous)
+            setNext(resp.data.next)
+            setActive(parseInt(link.substring(link.length-1, link.length)))
+            let n = resp.data.count / 6
+            let tab = []
+            for (let i = 0; i < n; i++) {
+                 tab.push(i+1)
+            }
+            setNumbers(tab)
+         })
+    }
 
+    const moveTo = (num : number) =>{
+        axios.get(`${apiUrl}/api/synopsis/?page=${num}`).then((resp)=>{
+            setSynopsis(resp.data.results)
+            setCount(resp.data.count)
+            setPrev(resp.data.previous)
+            setNext(resp.data.next)
+            setActive(num)
+            let n = resp.data.count / 6
+            let tab = []
+            for (let i = 0; i < n; i++) {
+                 tab.push(i+1)
+            }
+            setNumbers(tab)
+         })
+    }
 
 
     // ########################### HTML #################################### //
@@ -33,7 +83,7 @@ const Synopsis = () => {
             <div className=''>
                 <h1 className='align-center text-primary  font-Bebas font-bold xs:text-[1.5rem] lg:text-[2.5rem] leading-10 align-middle flex justify-center'><span className='bg-white'>TESTEZ VOTRE VITESSE AVEC CES SYNOPSIS</span></h1>
                 <div className='grid xs:grid-cols-1 lg:grid-cols-3 w-3/4 gap-4 mx-auto mt-8 object-fit'>
-                    {SYNOPSIS.map((el, i) => (
+                    {synopsis.map((el, i) => (
                         <div key={i}>
                             <div className='border-2 border-white h-[350px] object-cover overflow-hidden rounded-t-2xl relative group'>
                                 <img alt='anime' src={`/${el.url}`} className='object-cover h-full w-full'></img>
@@ -46,6 +96,13 @@ const Synopsis = () => {
                         </div>
                     ))}
                 </div>
+                <div className='flex justify-center items-center mt-8 gap-4 font-bold'>
+                    <button onClick={()=>{move(prev)}} className='bg-white text-primary rounded-lg px-4 py-2 border border-white hover:bg-primary hover:text-white duration-300'>Précédent</button>
+                    {numbers.map((el,i)=>(
+                        <button key={i} onClick={()=>{moveTo(el)}} className={`${active == el ? 'bg-white text-primary' : 'bg-primary text-white'} border border-white w-10 h-10 rounded-lg`}>{el}</button>
+                    ))}
+                    <button onClick={()=>{move(next)}} className='bg-white text-primary rounded-lg px-4 py-2 border border-white hover:bg-primary hover:text-white duration-300'>Suivant</button>
+                </div>
             </div>
         </>
     )
@@ -53,4 +110,4 @@ const Synopsis = () => {
 
 };
 
-export default Synopsis;
+export default Synops;

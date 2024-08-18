@@ -1,16 +1,14 @@
-export class Citations {
-    id !: string;
-    persoName !: string;
-    animeName !: string;
-    url !: string;
-    text !: string;
+export interface Citation {
+    id: string;
+    perso_name: string;
+    anime_name: string;
+    url: string;
+    text: string;
 }
-export class Synopsis{
-    constructor(
-        public id: string,
-        public anime: string,
-        public url: string,
-        public texte: string,
-        public validate: boolean,
-    ){}
+export interface Synopsis {
+    id: string,
+    anime: string,
+    url: string,
+    texte: string,
+    validate: boolean,
 }

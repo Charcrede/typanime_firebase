@@ -4,8 +4,7 @@ import { useState, FormEvent } from 'react';
 const Home = () => {
 
 // ########################### CONSTANTES #################################### //
-  const [url, setUrl] = useState<string>('');
-  const [name, setName] = useState<string>('Charcre-bailse Junior Destimmense Kingnon');
+const apiUrl = process.env.NEXT_PUBLIC_API
 
 // ########################### VARIABLES #################################### //
 

@@ -21,7 +21,8 @@ const config: Config = {
       },
       colors : {
         primary : '#1f3f71',
-        secondary : '#a8aae7'
+        secondary : '#a8aae7',
+        tertiary : '#377dbf'
       },
       screens : {
         xs : '50px',

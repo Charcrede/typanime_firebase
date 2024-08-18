@@ -8,11 +8,13 @@ import shippai from '../../../../public/assets/anime-33.png'
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Synopsis } from '@/app/otaku';
+import axios from 'axios';
 
 const Synop = ({ params: { id } }: { params: { id: string } }) => {
 
     // ########################### CONSTANTES #################################### //
     const [synop, setCit] = useState<Synopsis>()
+    const apiUrl = process.env.NEXT_PUBLIC_API
     const [text, setText] = useState<string[]>([])
     const router = useRouter()
 
@@ -42,17 +44,20 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
     // ########################### MOUNTED #################################### //
 
     useEffect(() => {
-        setTimeout(() => {
 
-            let sps = document.querySelectorAll(".lettre")
-            setSpans(sps)
-            setContainer(document.getElementById("container"))
-            setInput(document.getElementById("input"))
+        axios.get(`${apiUrl}/api/synopsis/${id}`).then((resp) => {
+            setCit(resp.data)
+            setTimeout(() => {
 
-            sps[i].classList.add("border-b-2")
-            sps[i].classList.add("border-b-primary")
-        }, 50);
-        setCit(SYNOPSIS.filter((el) => el.id == id)[0])
+                let sps = document.querySelectorAll(".lettre")
+                setSpans(sps)
+                setContainer(document.getElementById("container"))
+                setInput(document.getElementById("input"))
+
+                sps[i].classList.add("border-b-2")
+                sps[i].classList.add("border-b-primary")
+            }, 50);
+        })
         setAudio(new Audio('/assets/sounds/keypress.wav'))
         setAShippai(new Audio('/assets/sounds/shippai.mp3'))
         setASeiko(new Audio('/assets/sounds/seiko.mp3'))
@@ -73,16 +78,19 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
         }
     }, [synop])
     useEffect(() => {
-        setTimeout(() => {
+        if (key) {
 
-            let sps = document.querySelectorAll(".lettre")
-            setSpans(sps)
-            setContainer(document.getElementById("container"))
-            setInput(document.getElementById("input"))
+            setTimeout(() => {
 
-            sps[i].classList.add("border-b-2")
-            sps[i].classList.add("border-b-primary")
-        }, 50);
+                let sps = document.querySelectorAll(".lettre")
+                setSpans(sps)
+                setContainer(document.getElementById("container"))
+                setInput(document.getElementById("input"))
+
+                sps[i].classList.add("border-b-2")
+                sps[i].classList.add("border-b-primary")
+            }, 50);
+        } 
     }, [key])
 
     useEffect(() => {
