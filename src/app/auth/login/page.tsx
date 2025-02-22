@@ -1,10 +1,13 @@
 'use client';
 import { useState, FormEvent } from 'react';
 import { signIn } from 'next-auth/react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
   const apiUrl = process.env.NEXT_PUBLIC_API;
-  const [credentials, setCredentials] = useState({ username: '', password: '' });
+  const router = useRouter();
+  const [credentials, setCredentials] = useState({ username: '', password: '',email : '' });
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: any) => {
@@ -17,19 +20,13 @@ const Login = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    const result = await signIn('credentials', {
-      redirect: false,
-      username: credentials.username,
-      password: credentials.password,
-    });
-
-    if (result?.ok) {
-      alert('Connexion réussie');
-      // Rediriger l'utilisateur vers une page protégée ou la page d'accueil
-    } else {
-      alert('Erreur lors de la connexion'+ result);
-    }
+    axios.post(`${apiUrl}/api/auth/login`, JSON.stringify(credentials), {headers : {'Content-Type' : 'application/json'}} ).then((resp)=>{
+      localStorage.setItem('k', resp.data);
+      router.push('/profil')
+  }).catch((err)=>{
+      console.log(err);
+      
+  })
   };
 
   const togglePasswordVisibility = () => {
@@ -37,9 +34,9 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
-      <div className="bg-white bg-opacity-50 p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold mb-6 text-gray-800">Connexion</h1>
+    <div className="min-h-screen flex flex-col items-center justify-center">
+      <h1 className="text-3xl font-bold mb-6 font-Bebas text-white">Connexion</h1>
+      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="username" className="block text-gray-700 text-sm font-medium mb-2">

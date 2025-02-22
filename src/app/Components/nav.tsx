@@ -50,6 +50,8 @@ const Nav = () => {
                         <li><Link className={`${active == '' ? 'text-white bg-primary' : 'text-primary'} px-2 py-1 rounded-full`} href={'/'}>Acceuil</Link></li>
                         <li><Link className={`${active == 'citations' ? 'text-white bg-primary' : 'text-primary'} px-2 py-1 rounded-full`} href={'/citations'}>Citations</Link></li>
                         <li><Link className={`${active == 'synopsis' ? 'text-white bg-primary' : 'text-primary'} px-2 py-1 rounded-full`} href={'/synopsis'}>Synopsis</Link></li>
+                        <li><Link className={`${active == 'challenges' ? 'text-white bg-primary' : 'text-primary'} px-2 py-1 rounded-full`} href={'/challenges'}>Challenges</Link></li>
+                        <li><Link className={`${active == 'profil' ? 'text-white bg-primary' : 'text-primary'} px-2 py-1 rounded-full`} href={'/profil'}>Profil</Link></li>
                     </ul>
                 </nav>
                 <ul className={`${isOpen ? 'h-32' : 'h-0'} py-0 m-0 mb-4 font-ProductSans bg-white p-1 xs:p-0 font-bold text-primary lg:hidden duration-300 overflow-hidden`}>

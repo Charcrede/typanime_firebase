@@ -1,15 +1,17 @@
 'use client';
 import { useState, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
+import axios from 'axios'
 
 const Register = () => {
     // ########################### CONSTANTES #################################### //
     const apiUrl = process.env.NEXT_PUBLIC_API;
+    const router = useRouter()
 
     // ########################### VARIABLES #################################### //
     const [user, setUser] = useState({ username: '', password: '', email: '' });
     const [showPassword, setShowPassword] = useState(false); // État pour gérer la visibilité du mot de passe
-
     // ########################### METHODS #################################### //
 
     const handleChange = (e: any) => {
@@ -23,31 +25,16 @@ const Register = () => {
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
 
-        const res = await fetch(`${apiUrl}/api/register/`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(user),
-        });
+        axios.post(`${apiUrl}/api/auth/register`, JSON.stringify(user), {headers : {'Content-Type' : 'application/json'}} ).then((resp)=>{
+            localStorage.setItem('k', resp.data);
+            router.push('/synopsis')
+        }).catch((err)=>{
+            console.log(err);
+            
+        })
 
-        if (res.ok) {
-            // Connecter automatiquement l'utilisateur
-            const result = await signIn('credentials', {
-              redirect: false,
-              username: user.username,
-              password: user.password,
-            });
-      
-            if (result?.ok) {
-              alert('Inscription et connexion réussies');
-            } else {
-              alert('Connexion échouée');
-            }
-          } else {
-            console.log(res);
-            alert("Erreur lors de l'inscription");
-          }
+        
+        
     };
 
     const togglePasswordVisibility = () => {
@@ -57,13 +44,13 @@ const Register = () => {
     // ########################### HTML #################################### //
 
     return (
-        <>
-            <div className="min-h-screen flex items-center justify-center">
-                <div className="bg-white bg-opacity-50 p-8 rounded-lg shadow-lg w-full max-w-md">
-                    <h1 className="text-2xl font-bold mb-6 text-gray-800">Créer un compte</h1>
+        <>          
+            <div className="min-h-screen flex flex-col items-center justify-center">
+                    <h1 className="text-3xl font-bold mb-6 font-Bebas text-white">Créer un compte</h1>
+                <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
                     <form onSubmit={handleSubmit}>
                         <div className="mb-4">
-                            <label htmlFor="username" className="block text-gray-700 text-sm font-medium mb-2">Nom d'utilisateur</label>
+                            <label htmlFor="username" className="block text-primary text-sm font-medium mb-2">Nom d'utilisateur</label>
                             <input
                                 type="text"
                                 id="username"
@@ -76,7 +63,7 @@ const Register = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">Adresse e-mail</label>
+                            <label htmlFor="email" className="block text-primary text-sm font-medium mb-2">Adresse e-mail</label>
                             <input
                                 type="email"
                                 id="email"
@@ -89,7 +76,7 @@ const Register = () => {
                         </div>
 
                         <div className="mb-4 relative">
-                            <label htmlFor="password" className="block text-gray-700 text-sm font-medium mb-2">Mot de passe</label>
+                            <label htmlFor="password" className="block text-primary text-sm font-medium mb-2">Mot de passe</label>
                             <input
                                 type={showPassword ? 'text' : 'password'}
                                 id="password"
@@ -118,7 +105,7 @@ const Register = () => {
 
                         <button
                             type="submit"
-                            className="w-full px-4 py-2 bg-primary text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-opacity-50"
+                            className="w-full px-4 py-2 bg-primary font-Bebas text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-tertiary focus:ring-opacity-50"
                         >
                             S'inscrire
                         </button>

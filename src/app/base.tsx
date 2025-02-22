@@ -1,5 +1,6 @@
 'use client'
 import { useState, FormEvent } from 'react';
+import Nav from './Components/nav';
 
 const Home = () => {
 
@@ -26,7 +27,7 @@ const apiUrl = process.env.NEXT_PUBLIC_API
 
     return (
         <>
-            
+            <Nav></Nav>
         </>
     )
 

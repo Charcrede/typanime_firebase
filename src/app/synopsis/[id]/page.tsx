@@ -40,6 +40,7 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
     const entryRef = useRef(entry)
     const autoPause = useRef(0)
     const stopTimer = useRef<any>()
+    const [user, setUser] = useState<any>()
     let en = ''
     // ########################### MOUNTED #################################### //
 
@@ -61,20 +62,25 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
         setAudio(new Audio('/assets/sounds/keypress.wav'))
         setAShippai(new Audio('/assets/sounds/shippai.mp3'))
         setASeiko(new Audio('/assets/sounds/seiko.mp3'))
+        if (localStorage.getItem('k')) {
+            axios.get(`${apiUrl}/api/user`, {headers : {Authorization : `Bearer ${localStorage.getItem('k')}`}}).then((resp)=>{
+                setUser({token :localStorage.getItem('k'), u : resp.data})
+            })
+        }
 
     }, [])
 
     // ########################### WATCHER #################################### //
     useEffect(() => {
         if (synop) {
-            setWords(synop.texte.split(" "))
+            setWords(synop.text.split(" "))
             let tab: string[][] = []
-            for (let i = 0; i < synop.texte.split(" ").length; i++) {
-                const el = synop.texte.split(" ")[i];
+            for (let i = 0; i < synop.text.split(" ").length; i++) {
+                const el = synop.text.split(" ")[i];
                 tab.push(el.split(""))
             }
             setLetters(tab)
-            setText(synop.texte.split(""))
+            setText(synop.text.split(""))
         }
     }, [synop])
     useEffect(() => {
@@ -170,10 +176,18 @@ const Synop = ({ params: { id } }: { params: { id: string } }) => {
                     setMention('seiko')
                     aSeiko.currentTime = 0
                     aSeiko.play()
+                    // Mise à jour des stats si utilisateur connecté
                 } else {
                     setMention('shippai')
                     aShippai.currentTime = 0
                     aShippai.play()
+                }
+                if (user) {
+                    axios.post(`${apiUrl}/api/stats/create`, {accuracy : accuracy, speed : speed, synopsisId : synop?.id, username : user.u.username}, {headers : {Authorization : `Bearer ${user.token}`}}).then((resp)=>{
+                        console.log(user.token);
+                        
+                        // router.push('/synopsis')
+                    })
                 }
             }
 
